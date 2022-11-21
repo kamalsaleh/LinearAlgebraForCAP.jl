@@ -1,0 +1,10 @@
+name = "LinearAlgebraForCAP"
+uuid = "3dc4824f-14ac-4ab7-8a60-75dbcd4a9d60"
+authors = ["Kamal Saleh <kamal.saleh@web.de>"]
+version = "0.1.0"
+
+[deps]
+GAP = "c863536a-3901-11e9-33e7-d5cd0df7b904"
+GAP_jll = "5cd7a574-2c56-5be2-91dc-c8bc375b9ddf"
+CapAndHomalg = "c4774649-1891-41ea-a883-87141804c57c"
+CAP = "d64df2ee-d2bb-46f4-8cbc-f03bb858f8cb"
