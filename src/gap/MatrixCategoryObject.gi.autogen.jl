@@ -11,7 +11,7 @@
 ####################################
 
 ##
-InstallMethod( VectorSpaceObject,
+InstallMethod( @__MODULE__,  VectorSpaceObject,
                [ IsInt, IsFieldForHomalg ],
                 
   function( dimension, homalg_field )
@@ -21,7 +21,7 @@ InstallMethod( VectorSpaceObject,
 end );
 
 ##
-InstallMethodForCompilerForCAP( MatrixCategoryObjectOp,
+InstallMethod( @__MODULE__,  MatrixCategoryObjectOp,
                                 [ IsMatrixCategory, IsInt ],
                                 
   function( cat, dimension )
@@ -55,7 +55,7 @@ end );
 ####################################
 
 ##
-InstallMethod( UnderlyingFieldForHomalg,
+InstallMethod( @__MODULE__,  UnderlyingFieldForHomalg,
                [ IsVectorSpaceObject ],
                
   function( object )
@@ -70,7 +70,7 @@ end );
 ##
 ####################################
 
-InstallMethod( String,
+InstallMethod( @__MODULE__,  String,
               [ IsVectorSpaceObject ],
               
   function( vector_space_object )
@@ -81,7 +81,7 @@ InstallMethod( String,
     
 end );
 ##
-InstallMethod( ViewObj,
+InstallMethod( @__MODULE__,  ViewObj,
                [ IsVectorSpaceObject ],
 
   function( vector_space_object )
@@ -91,7 +91,7 @@ InstallMethod( ViewObj,
 end );
 
 ##
-InstallMethod( Display,
+InstallMethod( @__MODULE__,  Display,
                [ IsVectorSpaceObject ],
                
   function( vector_space_object )
@@ -102,7 +102,7 @@ end );
 
 #=
 ##
-InstallMethod( LaTeXOutput,
+InstallMethod( @__MODULE__,  LaTeXOutput,
                [ IsVectorSpaceObject ],
                
   function( vector_space_object )

@@ -11,7 +11,7 @@
 ####################################
 
 ##
-InstallMethod( MatrixCategoryAsCategoryOfRows,
+InstallMethod( @__MODULE__,  MatrixCategoryAsCategoryOfRows,
                [ IsFieldForHomalg ],
                
   function( homalg_ring )

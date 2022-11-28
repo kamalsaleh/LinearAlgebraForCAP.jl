@@ -10,7 +10,7 @@
 ##
 ####################################
 
-InstallMethod( MatrixCategory,
+InstallMethod( @__MODULE__,  MatrixCategory,
                [ IsFieldForHomalg ],
                
   function( homalg_field )
@@ -19,7 +19,7 @@ InstallMethod( MatrixCategory,
     
 end );
 
-InstallGlobalFunction( MATRIX_CATEGORY,
+@InstallGlobalFunction( MATRIX_CATEGORY,
   function( homalg_field )
     local category;
     

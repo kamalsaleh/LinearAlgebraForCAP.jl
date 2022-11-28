@@ -16,7 +16,7 @@
 #! The GAP category of morphisms ⥉ the category
 #! of matrices of a field  F .
 #! @Arguments object
-DeclareCategory( "IsVectorSpaceMorphism",
+@DeclareFilter( "IsVectorSpaceMorphism",
                  IsCapCategoryMorphism );
 
 ####################################
@@ -33,15 +33,15 @@ DeclareCategory( "IsVectorSpaceMorphism",
 #! of matrices over  F  whose underlying matrix is given by  M .
 #! @Returns a morphism ⥉  \mathrm[Hom](S,R) 
 #! @Arguments S, M, R
-DeclareOperation( "VectorSpaceMorphism",
+@DeclareOperation( "VectorSpaceMorphism",
                   [ IsVectorSpaceObject, IsHomalgMatrix, IsVectorSpaceObject ] );
 
-DeclareOperation( "VectorSpaceMorphism",
+@DeclareOperation( "VectorSpaceMorphism",
                   [ IsVectorSpaceObject, IsList, IsVectorSpaceObject ] );
 
-DeclareAttribute( "AsVectorSpaceMorphism", IsHomalgMatrix );
+@DeclareAttribute( "AsVectorSpaceMorphism", IsHomalgMatrix );
 
-DeclareOperation( "/",
+@DeclareOperation( "/",
                   [ IsHomalgMatrix, IsMatrixCategory ] );
 
 ####################################
@@ -56,7 +56,7 @@ DeclareOperation( "/",
 #! The output is the field  F .
 #! @Returns a homalg field
 #! @Arguments alpha
-DeclareAttribute( "UnderlyingFieldForHomalg",
+@DeclareAttribute( "UnderlyingFieldForHomalg",
                   IsVectorSpaceMorphism );
 
 #! @Description
@@ -64,6 +64,6 @@ DeclareAttribute( "UnderlyingFieldForHomalg",
 #! The output is its underlying matrix  M .
 #! @Returns a homalg matrix
 #! @Arguments alpha
-DeclareAttribute( "UnderlyingMatrix",
+@DeclareAttribute( "UnderlyingMatrix",
                   IsVectorSpaceMorphism );
 CapJitAddTypeSignature( "UnderlyingMatrix", [ IsVectorSpaceMorphism ], IsHomalgMatrix );

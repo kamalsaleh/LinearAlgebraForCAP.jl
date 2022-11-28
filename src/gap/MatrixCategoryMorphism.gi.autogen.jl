@@ -11,7 +11,7 @@
 ####################################
 
 ##
-InstallMethod( AsVectorSpaceMorphism,
+InstallMethod( @__MODULE__,  AsVectorSpaceMorphism,
                [ IsHomalgMatrix ],
                
   function( homalg_matrix )
@@ -29,7 +29,7 @@ end );
 
 ##
 # convenience
-InstallMethod( VectorSpaceMorphism,
+InstallMethod( @__MODULE__,  VectorSpaceMorphism,
                [ IsVectorSpaceObject, IsList, IsVectorSpaceObject ],
                
   function( source, element_list, range )
@@ -45,7 +45,7 @@ end );
 
 ##
 # convenience
-InstallMethod( VectorSpaceMorphism,
+InstallMethod( @__MODULE__,  VectorSpaceMorphism,
                [ IsVectorSpaceObject, IsHomalgMatrix, IsVectorSpaceObject ],
                
   function( source, homalg_matrix, range )
@@ -97,7 +97,7 @@ end );
 ####################################
 
 ##
-InstallMethod( UnderlyingFieldForHomalg,
+InstallMethod( @__MODULE__,  UnderlyingFieldForHomalg,
                [ IsVectorSpaceMorphism ],
                
   function( morphism )
@@ -113,7 +113,7 @@ end );
 ####################################
 
 ##
-InstallMethod( Display,
+InstallMethod( @__MODULE__,  Display,
                [ IsVectorSpaceMorphism ],
                
   function( vector_space_morphism )
@@ -130,7 +130,7 @@ end );
 
 #=
 ##
-InstallMethod( LaTeXOutput,
+InstallMethod( @__MODULE__,  LaTeXOutput,
           [ IsVectorSpaceMorphism ],
           
   function( vector_space_morphism )

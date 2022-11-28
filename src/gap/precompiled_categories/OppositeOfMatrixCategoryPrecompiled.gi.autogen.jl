@@ -3,7 +3,7 @@
 #
 # Implementations
 #
-BindGlobal( "ADD_FUNCTIONS_FOR_OppositeOfMatrixCategoryPrecompiled", function ( cat )
+@BindGlobal( "ADD_FUNCTIONS_FOR_OppositeOfMatrixCategoryPrecompiled", function ( cat )
     
     ##
     AddAdditionForMorphisms( cat,
@@ -1046,7 +1046,7 @@ end
     
 end );
 
-BindGlobal( "OppositeOfMatrixCategoryPrecompiled", function ( field )
+@BindGlobal( "OppositeOfMatrixCategoryPrecompiled", function ( field )
   local category_constructor, cat;
     
     category_constructor =

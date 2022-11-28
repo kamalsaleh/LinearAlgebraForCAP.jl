@@ -6,7 +6,7 @@
 
 #! @Chapter Category of Matrices
 
-DeclareCategory( "IsMatrixCategory",
+@DeclareFilter( "IsMatrixCategory",
                  IsCapCategory );
 
 ####################################
@@ -23,13 +23,13 @@ DeclareCategory( "IsMatrixCategory",
 #!  m \times n  matrices.
 #! @Returns a category
 #! @Arguments F
-DeclareAttribute( "MatrixCategory",
+@DeclareAttribute( "MatrixCategory",
                   IsFieldForHomalg );
 
 # provide a constructor which is !an attribute
-DeclareGlobalFunction( "MATRIX_CATEGORY" );
+@DeclareGlobalFunction( "MATRIX_CATEGORY" );
 
-DeclareGlobalFunction( "INSTALL_FUNCTIONS_FOR_MATRIX_CATEGORY" );
+@DeclareGlobalFunction( "INSTALL_FUNCTIONS_FOR_MATRIX_CATEGORY" );
 
 ####################################
 ##
@@ -37,6 +37,6 @@ DeclareGlobalFunction( "INSTALL_FUNCTIONS_FOR_MATRIX_CATEGORY" );
 ##
 ####################################
 
-DeclareAttribute( "UnderlyingRing",
+@DeclareAttribute( "UnderlyingRing",
                   IsMatrixCategory );
 CapJitAddTypeSignature( "UnderlyingRing", [ IsMatrixCategory ], IsHomalgRing );

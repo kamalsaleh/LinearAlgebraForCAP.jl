@@ -3,7 +3,7 @@
 #
 # Implementations
 #
-BindGlobal( "ADD_FUNCTIONS_FOR_MatrixCategoryPrecompiled", function ( cat )
+@BindGlobal( "ADD_FUNCTIONS_FOR_MatrixCategoryPrecompiled", function ( cat )
     
     ##
     AddAdditionForMorphisms( cat,
@@ -3246,7 +3246,7 @@ end
     
 end );
 
-BindGlobal( "MatrixCategoryPrecompiled", function ( field )
+@BindGlobal( "MatrixCategoryPrecompiled", function ( field )
   local category_constructor, cat;
     
     category_constructor =

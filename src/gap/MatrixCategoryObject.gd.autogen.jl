@@ -16,7 +16,7 @@
 #! The GAP category of objects ⥉ the category
 #! of matrices of a field  F .
 #! @Arguments object
-DeclareCategory( "IsVectorSpaceObject",
+@DeclareFilter( "IsVectorSpaceObject",
                  IsCapCategoryObject );
 
 ####################################
@@ -33,7 +33,7 @@ DeclareCategory( "IsVectorSpaceObject",
 #! This function delegates to <C>MatrixCategoryObject</C>.
 #! @Returns an object
 #! @Arguments d, F
-DeclareOperation( "VectorSpaceObject",
+@DeclareOperation( "VectorSpaceObject",
                   [ IsInt, IsFieldForHomalg ] );
 
 #! @Description
@@ -42,7 +42,7 @@ DeclareOperation( "VectorSpaceObject",
 #! The output is an object ⥉  cat  of dimension  d .
 #! @Returns an object
 #! @Arguments cat, d
-KeyDependentOperation( "MatrixCategoryObject",
+@KeyDependentOperation( "MatrixCategoryObject",
                        IsMatrixCategory, IsInt, ReturnTrue );
 
 
@@ -58,7 +58,7 @@ KeyDependentOperation( "MatrixCategoryObject",
 #! The output is the field  F .
 #! @Returns a homalg field
 #! @Arguments A
-DeclareAttribute( "UnderlyingFieldForHomalg",
+@DeclareAttribute( "UnderlyingFieldForHomalg",
                   IsVectorSpaceObject );
 
 #! @Description
@@ -66,6 +66,6 @@ DeclareAttribute( "UnderlyingFieldForHomalg",
 #! The output is the dimension of  A .
 #! @Returns a non-negative integer
 #! @Arguments A
-DeclareAttribute( "Dimension",
+@DeclareAttribute( "Dimension",
                   IsVectorSpaceObject );
 CapJitAddTypeSignature( "Dimension", [ IsVectorSpaceObject ], IsInt );

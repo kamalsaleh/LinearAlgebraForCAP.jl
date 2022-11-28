@@ -20,5 +20,5 @@
 #! Only available if the package `FreydCategoriesForCAP` is available.
 #! @Returns a category
 #! @Arguments F
-DeclareOperation( "MatrixCategoryAsCategoryOfRows",
+@DeclareOperation( "MatrixCategoryAsCategoryOfRows",
                   [ IsFieldForHomalg ] );
