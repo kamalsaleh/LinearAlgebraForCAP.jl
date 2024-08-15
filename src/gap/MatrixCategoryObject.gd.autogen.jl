@@ -13,8 +13,8 @@
 ####################################
 
 #! @Description
-#! The GAP category of objects ⥉ the category
-#! of matrices of a field  F .
+#! The GAP category of objects in the category
+#! of matrices of a field $F$.
 #! @Arguments object
 @DeclareFilter( "IsVectorSpaceObject",
                  IsCapCategoryObject );
@@ -26,10 +26,10 @@
 ####################################
 
 #! @Description
-#! The arguments are a non-negative integer  d 
-#! && a homalg field  F .
-#! The output is an object ⥉ the category of
-#! matrices over  F  of dimension  d .
+#! The arguments are a non-negative integer $d$
+#! and a homalg field $F$.
+#! The output is an object in the category of
+#! matrices over $F$ of dimension $d$.
 #! This function delegates to <C>MatrixCategoryObject</C>.
 #! @Returns an object
 #! @Arguments d, F
@@ -37,9 +37,9 @@
                   [ IsInt, IsFieldForHomalg ] );
 
 #! @Description
-#! The arguments are a matrix category  cat  over a field
-#! && a non-negative integer  d .
-#! The output is an object ⥉  cat  of dimension  d .
+#! The arguments are a matrix category $cat$ over a field
+#! and a non-negative integer $d$.
+#! The output is an object in $cat$ of dimension $d$.
 #! @Returns an object
 #! @Arguments cat, d
 @KeyDependentOperation( "MatrixCategoryObject",
@@ -53,17 +53,17 @@
 ####################################
 
 #! @Description
-#! The argument is an object  A  ⥉ the matrix category over a
-#! homalg field  F .
-#! The output is the field  F .
+#! The argument is an object $A$ in the matrix category over a
+#! homalg field $F$.
+#! The output is the field $F$.
 #! @Returns a homalg field
 #! @Arguments A
 @DeclareAttribute( "UnderlyingFieldForHomalg",
                   IsVectorSpaceObject );
 
 #! @Description
-#! The argument is an object  A  ⥉ a matrix category.
-#! The output is the dimension of  A .
+#! The argument is an object $A$ in a matrix category.
+#! The output is the dimension of $A$.
 #! @Returns a non-negative integer
 #! @Arguments A
 @DeclareAttribute( "Dimension",

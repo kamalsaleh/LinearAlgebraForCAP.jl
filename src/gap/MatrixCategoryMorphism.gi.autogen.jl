@@ -11,11 +11,13 @@
 ####################################
 
 ##
-InstallMethod( @__MODULE__,  AsVectorSpaceMorphism,
+@InstallMethod( AsVectorSpaceMorphism,
                [ IsHomalgMatrix ],
                
   function( homalg_matrix )
     local field;
+    
+    Print( "WARNING: AsVectorSpaceMorphism is deprecated and will not be supported after 2025.08.14. Use `<homalg_matrix> / <matrix_category>` instead.\n" );
     
     field = HomalgRing( homalg_matrix );
     
@@ -29,7 +31,7 @@ end );
 
 ##
 # convenience
-InstallMethod( @__MODULE__,  VectorSpaceMorphism,
+@InstallMethod( VectorSpaceMorphism,
                [ IsVectorSpaceObject, IsList, IsVectorSpaceObject ],
                
   function( source, element_list, range )
@@ -37,7 +39,7 @@ InstallMethod( @__MODULE__,  VectorSpaceMorphism,
     
     field = UnderlyingRing( CapCategory( source ) );
     
-    homalg_matrix = HomalgMatrix( element_list, Dimension( source ), Dimension( range ), field );
+    homalg_matrix = HomalgMatrix( element_list, AsInteger( source ), AsInteger( range ), field );
     
     return VectorSpaceMorphism( source, homalg_matrix, range );
     
@@ -45,7 +47,7 @@ end );
 
 ##
 # convenience
-InstallMethod( @__MODULE__,  VectorSpaceMorphism,
+@InstallMethod( VectorSpaceMorphism,
                [ IsVectorSpaceObject, IsHomalgMatrix, IsVectorSpaceObject ],
                
   function( source, homalg_matrix, range )
@@ -55,38 +57,36 @@ InstallMethod( @__MODULE__,  VectorSpaceMorphism,
 end );
 
 ##
-InstallOtherMethodForCompilerForCAP( VectorSpaceMorphism,
+@InstallMethod( VectorSpaceMorphism,
                                      [ IsMatrixCategory, IsVectorSpaceObject, IsHomalgMatrix, IsVectorSpaceObject ],
                                      
   function( cat, source, homalg_matrix, range )
     
-    if !IsHomalgMatrix( homalg_matrix )
+    if (@not IsHomalgMatrix( homalg_matrix ))
         
         Error( "the morphism datum must be a homalg matrix" );
         
     end;
     
-    if !IsIdenticalObj( HomalgRing( homalg_matrix ), UnderlyingRing( cat ) )
+    if (@not IsIdenticalObj( HomalgRing( homalg_matrix ), UnderlyingRing( cat ) ))
         
         Error( "the matrix is defined over a different ring than the category" );
         
     end;
     
-    if NrRows( homalg_matrix ) != Dimension( source )
+    if (NrRows( homalg_matrix ) != AsInteger( source ))
         
         Error( "the number of rows has to be equal to the dimension of the source" );
         
     end;
     
-    if NrColumns( homalg_matrix ) != Dimension( range )
+    if (NrColumns( homalg_matrix ) != AsInteger( range ))
         
         Error( "the number of columns has to be equal to the dimension of the range" );
         
     end;
     
-    return CreateCapCategoryMorphismWithAttributes( cat, source, range,
-                                                    UnderlyingMatrix, homalg_matrix
-    );
+    return AsCapCategoryMorphism( cat, source, homalg_matrix, range );
     
 end );
 
@@ -97,12 +97,22 @@ end );
 ####################################
 
 ##
-InstallMethod( @__MODULE__,  UnderlyingFieldForHomalg,
+@InstallMethod( UnderlyingFieldForHomalg,
                [ IsVectorSpaceMorphism ],
                
   function( morphism )
     
     return UnderlyingRing( CapCategory( morphism ) );
+    
+end );
+
+##
+@InstallMethod( UnderlyingMatrix,
+               [ IsVectorSpaceMorphism ],
+               
+  function( morphism )
+    
+    return AsHomalgMatrix( morphism );
     
 end );
 
@@ -113,34 +123,28 @@ end );
 ####################################
 
 ##
-InstallMethod( @__MODULE__,  Display,
+@InstallMethod( DisplayString,
                [ IsVectorSpaceMorphism ],
                
   function( vector_space_morphism )
     
-    Display( UnderlyingMatrix( vector_space_morphism ) );
-    
-    Print( "\n" );
-    
-    Print( StringMutable( vector_space_morphism ) );
-    
-    Print( "\n" );
+    return @Concatenation( StringDisplay( AsHomalgMatrix( vector_space_morphism ) ), "\n", StringMutable( vector_space_morphism ), "\n" );
     
 end );
 
-#=
 ##
-InstallMethod( @__MODULE__,  LaTeXOutput,
+#= comment for Julia
+@InstallMethod( LaTeXOutput,
           [ IsVectorSpaceMorphism ],
           
   function( vector_space_morphism )
     local matrix;
     
-    matrix = LaTeXOutput( UnderlyingMatrix( vector_space_morphism ) );
+    matrix = LaTeXOutput( AsHomalgMatrix( vector_space_morphism ) );
     
-    if ValueOption( "OnlyDatum" ) == true
+    if (ValueOption( "OnlyDatum" ) == true)
        
-       return Concatenation(
+       return @Concatenation(
         """[\color[blue][""",
         matrix,
         """]]"""
@@ -148,7 +152,7 @@ InstallMethod( @__MODULE__,  LaTeXOutput,
       
     else
       
-      return Concatenation(
+      return @Concatenation(
         LaTeXOutput( Source( vector_space_morphism ) ),
         """[\color[blue][\xrightarrow[""",
         matrix,
@@ -168,7 +172,7 @@ end );
 ####################################
 
 ##
-InstallOtherMethod( /,
+@InstallMethod( /,
                [ IsHomalgMatrix, IsMatrixCategory ],
   function( homalg_matrix, category )
     local field;

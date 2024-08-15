@@ -10,7 +10,7 @@
 ##
 ####################################
 
-InstallMethod( @__MODULE__,  MatrixCategory,
+@InstallMethod( MatrixCategory,
                [ IsFieldForHomalg ],
                
   function( homalg_field )
@@ -23,26 +23,24 @@ end );
   function( homalg_field )
     local category;
     
-    category = CreateCapCategory( Concatenation( "Category of matrices over ", RingName( homalg_field ) ),
-                  IsMatrixCategory, IsVectorSpaceObject, IsVectorSpaceMorphism, IsCapCategoryTwoCell );
-    
-    category.category_as_first_argument = true;
+    category = CreateCapCategoryWithDataTypes(
+        @Concatenation( "Category of matrices over ", RingName( homalg_field ) ), IsMatrixCategory,
+        IsVectorSpaceObject, IsVectorSpaceMorphism, IsCapCategoryTwoCell,
+        IsInt, @rec( filter = IsHomalgMatrix, ring = homalg_field ), fail
+    );
     
     category.supports_empty_limits = true;
     
-    category.compiler_hints = rec(
+    category.compiler_hints = @rec(
         category_attribute_names = [
             "UnderlyingRing",
         ],
-        source_and_range_attributes_from_morphism_attribute = rec(
-            object_attribute_name = "Dimension",
-            morphism_attribute_name = "UnderlyingMatrix",
+        source_and_range_attributes_from_morphism_attribute = @rec(
+            object_attribute_name = "AsInteger",
+            morphism_attribute_name = "AsHomalgMatrix",
             source_attribute_getter_name = "NumberRows",
             range_attribute_getter_name = "NumberColumns",
         ),
-        category_filter = IsMatrixCategory,
-        object_filter = IsVectorSpaceObject,
-        morphism_filter = IsVectorSpaceMorphism,
     );
     
     # this cache replaces the KeyDependentOperation caching when using ObjectConstructor directly instead of MatrixCategoryObject
@@ -60,21 +58,39 @@ end );
     
     SetIsAbelianCategoryWithEnoughInjectives( category, true );
     
-    #=
     SetIsRigidSymmetricClosedMonoidalCategory( category, true );
     
     SetIsRigidSymmetricCoclosedMonoidalCategory( category, true );
     
     SetIsStrictMonoidalCategory( category, true );
-    # =#
-    SetIsLinearCategoryOverCommutativeRing( category, true );
+    
+    SetIsLinearCategoryOverCommutativeRingWithFinitelyGeneratedFreeExternalHoms( category, true );
     
     SetCommutativeRingOfLinearCategory( category, homalg_field );
     
     SetRangeCategoryOfHomomorphismStructure( category, category );
+    SetIsEquippedWithHomomorphismStructure( category, true );
     
-    #= comment for julia
-    if category.overhead
+    if (ValueOption( "no_precompiled_code" ) == true)
+        
+        if (IsPackageMarkedForLoading( "FreydCategoriesForCAP", ">= 2022.10-14" ))
+            
+            category = MatrixCategory_as_CategoryOfRows( homalg_field );
+            
+        else
+            
+            Error( "To get a version of `MatrixCategory` without precompiled code, the package `FreydCategoriesForCAP` is required." );
+            
+        end;
+        
+    else
+        
+        ADD_FUNCTIONS_FOR_MatrixCategory_precompiled( category );
+        
+    end;
+    
+    #= comment for Julia
+    if (category.overhead)
         
         ## TODO: Logic for MatrixCategory
         AddPredicateImplicationFileToCategory( category,
@@ -85,23 +101,6 @@ end );
         
     end;
     # =#
-    if ValueOption( "no_precompiled_code" ) == true
-        
-        if IsPackageMarkedForLoading( "FreydCategoriesForCAP", ">= 2022.10-14" )
-            
-            return MatrixCategoryAsCategoryOfRows( homalg_field );
-            
-        else
-            
-            Error( "To get a version of `MatrixCategory` without precompiled code, the package `FreydCategoriesForCAP` is required." );
-            
-        end;
-        
-    else
-        
-        ADD_FUNCTIONS_FOR_MatrixCategoryPrecompiled( category );
-        
-    end;
     
     Finalize( category );
     

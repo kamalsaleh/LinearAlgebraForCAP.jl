@@ -13,12 +13,12 @@
 ####################################
 
 #! @Description
-#! The argument is a homalg field  F .
-#! The output is the matrix category over  F ,
+#! The argument is a homalg field $F$.
+#! The output is the matrix category over $F$,
 #! constructed internally as a wrapper category of
-#! the `CategoryOfRows` of  F .
+#! the `CategoryOfRows` of $F$.
 #! Only available if the package `FreydCategoriesForCAP` is available.
 #! @Returns a category
 #! @Arguments F
-@DeclareOperation( "MatrixCategoryAsCategoryOfRows",
+@DeclareOperation( "MatrixCategory_as_CategoryOfRows",
                   [ IsFieldForHomalg ] );

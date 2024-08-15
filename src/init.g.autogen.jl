@@ -10,4 +10,4 @@ include( "gap/MatrixCategoryObject.gd.autogen.jl" );
 
 include( "gap/MatrixCategoryMorphism.gd.autogen.jl" );
 
-include( "gap/MatrixCategoryAsCategoryOfRows.gd.autogen.jl" );
+include( "gap/MatrixCategory_as_CategoryOfRows.gd.autogen.jl" );

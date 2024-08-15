@@ -11,35 +11,41 @@
 ####################################
 
 ##
-InstallMethod( @__MODULE__,  VectorSpaceObject,
+@InstallMethod( VectorSpaceObject,
                [ IsInt, IsFieldForHomalg ],
                 
   function( dimension, homalg_field )
     
-    return MatrixCategoryObject( MatrixCategory( homalg_field ), dimension );
+    if (@not @IsBound( homalg_field.MatrixCategory ))
+        
+        homalg_field.MatrixCategory = MatrixCategory( homalg_field );
+        
+    end;
+    
+    return MatrixCategoryObject( homalg_field.MatrixCategory, dimension );
     
 end );
 
 ##
-InstallMethod( @__MODULE__,  MatrixCategoryObjectOp,
+@InstallMethod( MatrixCategoryObjectOp,
                                 [ IsMatrixCategory, IsInt ],
                                 
   function( cat, dimension )
     local category;
     
-    if !IsInt( dimension ) || dimension < 0
+    if (!(IsInt( dimension )) || dimension < 0)
         
         Error( "the object datum must be a non-negative integer" );
         
     end;
     
-    return CreateCapCategoryObjectWithAttributes( cat, Dimension, dimension );
+    return AsCapCategoryObject( cat, dimension );
     
 end );
 
 ##
 # backwards compatibility
-InstallOtherMethod( MatrixCategoryObject,
+@InstallMethod( MatrixCategoryObject,
                     [ IsFieldForHomalg, IsInt ],
                     
   function( homalg_field, dimension )
@@ -55,12 +61,22 @@ end );
 ####################################
 
 ##
-InstallMethod( @__MODULE__,  UnderlyingFieldForHomalg,
+@InstallMethod( UnderlyingFieldForHomalg,
                [ IsVectorSpaceObject ],
                
   function( object )
     
     return UnderlyingRing( CapCategory( object ) );
+    
+end );
+
+##
+@InstallMethod( Dimension,
+               [ IsVectorSpaceObject ],
+               
+  function( object )
+    
+    return AsInteger( object );
     
 end );
 
@@ -70,44 +86,44 @@ end );
 ##
 ####################################
 
-InstallMethod( @__MODULE__,  String,
+##
+@InstallMethod( StringGAP,
               [ IsVectorSpaceObject ],
               
   function( vector_space_object )
     
-    return Concatenation( "A vector space object over ",
+    return @Concatenation( "A vector space object over ",
                           RingName( UnderlyingRing( CapCategory( vector_space_object ) ) ),
-                          " of dimension ", string( Dimension( vector_space_object ) ) );
+                          " of dimension ", StringGAP( AsInteger( vector_space_object ) ) );
     
 end );
+
 ##
-InstallMethod( @__MODULE__,  ViewObj,
+@InstallMethod( ViewString,
                [ IsVectorSpaceObject ],
 
   function( vector_space_object )
 
-    Print( Concatenation( "<", string( vector_space_object ), ">" ) );
+    return @Concatenation( "<", StringGAP( vector_space_object ), ">" );
 
 end );
 
 ##
-InstallMethod( @__MODULE__,  Display,
-               [ IsVectorSpaceObject ],
-               
-  function( vector_space_object )
-    
-    Print( string( vector_space_object ), "\n" );
-    
-end );
-
-#=
-##
-InstallMethod( @__MODULE__,  LaTeXOutput,
+@InstallMethod( DisplayString,
                [ IsVectorSpaceObject ],
                
   function( vector_space_object )
     
-    return Concatenation( LaTeXOutput( UnderlyingRing( CapCategory( vector_space_object ) ) ), "^[1 \\times ", string( Dimension( vector_space_object ) ), "]" );
+    return @Concatenation( StringGAP( vector_space_object ), "\n" );
     
 end );
-# =#
+
+##
+@InstallMethod( LaTeXOutput,
+               [ IsVectorSpaceObject ],
+               
+  function( vector_space_object )
+    
+    return @Concatenation( LaTeXOutput( UnderlyingRing( CapCategory( vector_space_object ) ) ), "^[1 \\times ", StringGAP( AsInteger( vector_space_object ) ), "]" );
+    
+end );
